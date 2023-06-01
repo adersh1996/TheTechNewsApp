@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".DetailedNewsView">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/news_image_one"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <TextView
+            android:id="@+id/news_headline_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/news_image_one"
+            android:fontFamily="@font/archivo_semibold"
+            android:text="@string/sample_txt"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/news_description_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/news_headline_tv"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/martel_sans"
+            android:text="@string/sample_txt" />
+
+        <ImageView
+            android:id="@+id/news_image_two"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/news_description_tv" />
+
+        <ImageView
+            android:id="@+id/news_image_three"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/news_image_two" />
+
+        <VideoView
+            android:id="@+id/video_view_one"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/news_image_three"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/news_comment_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_below="@id/video_view_one"
+            android:layout_marginBottom="20dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/baseline_comment_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

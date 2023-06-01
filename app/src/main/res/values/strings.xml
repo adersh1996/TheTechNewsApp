@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TheTechNewsApp</string>
+    <string name="title_activity_home_screen_bottom_navigation">HomeScreen_bottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Topics</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_news_imgs">News_Imgs</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sample_txt">News HeadLine sample news Headline sample news healine sample news headline</string>
+</resources>
