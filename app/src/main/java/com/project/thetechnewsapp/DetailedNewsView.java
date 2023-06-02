@@ -39,6 +39,7 @@ public class DetailedNewsView extends AppCompatActivity {
         setContentView(R.layout.activity_detailed_news_view);
         initView();
         String newsId = getIntent().getStringExtra("newsId");
+       // Toast.makeText(this, newsId, Toast.LENGTH_SHORT).show();
         detailedNewsApiCall(newsId);
 
         addComment.setOnClickListener(new View.OnClickListener() {

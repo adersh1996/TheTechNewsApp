@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         String deviceToken = getToken(getApplicationContext());
          Log.d("msggg",deviceToken);
-        Toast.makeText(this, deviceToken, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, deviceToken, Toast.LENGTH_SHORT).show();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override

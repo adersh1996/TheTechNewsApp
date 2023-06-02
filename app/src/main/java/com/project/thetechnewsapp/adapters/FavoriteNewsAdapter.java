@@ -40,11 +40,11 @@ public class FavoriteNewsAdapter extends RecyclerView.Adapter<FavoriteNewsAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.newsHeadlineTxt.setText(root.newsView.get(position).headline);
-        holder.timeTxt.setText(root.newsView.get(position).date);
+        holder.newsHeadlineTxt.setText(root.favNews.get(position).headline);
+        holder.timeTxt.setText(root.favNews.get(position).date);
 
         try {
-            Glide.with(context).load(root.newsView.get(position).photos.get(0)).into(holder.newsImage);
+            Glide.with(context).load(root.favNews.get(position).photos.get(0)).into(holder.newsImage);
         } catch (Exception e) {
 
         }
@@ -54,7 +54,7 @@ public class FavoriteNewsAdapter extends RecyclerView.Adapter<FavoriteNewsAdapte
             @Override
             public void onClick(View view) {
                Intent intent = new Intent(context, DetailedNewsView.class);
-                intent.putExtra("newsId", root.newsView.get(position).id);
+                intent.putExtra("newsId", root.favNews.get(position).newsId);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
@@ -66,7 +66,7 @@ public class FavoriteNewsAdapter extends RecyclerView.Adapter<FavoriteNewsAdapte
 
     @Override
     public int getItemCount() {
-        return root.newsView.size();
+        return root.favNews.size();
     }
 
 

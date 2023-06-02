@@ -2,8 +2,9 @@ package com.project.thetechnewsapp.models;
 
 import java.util.ArrayList;
 
-public class NewsView {
+public class FavNews {
     public String id;
+    public String newsId;
     public String headline;
     public String video;
     public String subline;
@@ -12,7 +13,4 @@ public class NewsView {
     public String time;
     public ArrayList<String> photos;
     public String description;
-
-    public String favorite_status;
-    public String favoriteId;
 }

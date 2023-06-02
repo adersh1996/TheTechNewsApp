@@ -29,7 +29,7 @@ public interface APIInterface {
                        @Field("password") String password);
 
     @GET("viewAllNews.php")
-    Call<Root> VIEWALLNEWSAPI();
+    Call<Root> VIEWALLNEWSAPI(@Query("userid")String userId);
 
 
     @GET("viewFav.php")
@@ -51,6 +51,9 @@ public interface APIInterface {
     @POST("favoriteNews.php")
     Call<Root> ADD_TO_FAVORITE_API(@Field("uid") String userId,
                                    @Field("nid") String newsId);
+
+    @GET("removeFav.php")
+    Call<Root> REMOVE_FAVORITE_API(@Query("favid") String favoriteId);
 
     @GET("viewNews.php")
     Call<Root> VIEW_DETAILED_NEWS(@Query("news_id") String newsId);

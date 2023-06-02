@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.project.thetechnewsapp.DetailedNewsView;
+import com.project.thetechnewsapp.HomeFragment;
 import com.project.thetechnewsapp.R;
 import com.project.thetechnewsapp.models.Root;
 import com.project.thetechnewsapp.retrofit.APIInterface;
@@ -55,6 +57,13 @@ public class HomeTopNewsAdapter extends RecyclerView.Adapter<HomeTopNewsAdapter.
         String userId = sharedPreferences.getString("userId", "");
         try {
             Glide.with(context).load(root.newsView.get(position).photos.get(0)).into(holder.newsImage);
+            if (root.newsView.get(position).favorite_status.equals("favorite")) {
+                holder.favoriteBtn.setImageResource(R.drawable.baseline_star_24);
+
+            } else {
+                holder.favoriteBtn.setImageResource(R.drawable.outline_star_border_24);
+
+            }
         } catch (Exception e) {
 
         }
@@ -69,10 +78,18 @@ public class HomeTopNewsAdapter extends RecyclerView.Adapter<HomeTopNewsAdapter.
                 context.startActivity(intent);
             }
         });
+
+
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                favoriteApiCall(userId, root.newsView.get(position).id);
+
+                if (root.newsView.get(position).favorite_status.equals("favorite")) {
+                    removeFavoriteApiCall((root.newsView.get(position).favoriteId), holder.favoriteBtn, position);
+                } else {
+                    favoriteApiCall(userId, root.newsView.get(position).id, holder.favoriteBtn, position);
+                }
+
             }
         });
 
@@ -84,7 +101,7 @@ public class HomeTopNewsAdapter extends RecyclerView.Adapter<HomeTopNewsAdapter.
         return root.newsView.size();
     }
 
-    void favoriteApiCall(String userId, String newsId) {
+    void favoriteApiCall(String userId, String newsId, ImageView favoriteBtn, int position) {
 
         APIInterface api = ApiClient.getClient().create(APIInterface.class);
         api.ADD_TO_FAVORITE_API(userId, newsId).enqueue(new Callback<Root>() {
@@ -94,6 +111,42 @@ public class HomeTopNewsAdapter extends RecyclerView.Adapter<HomeTopNewsAdapter.
                     Root root = response.body();
                     if (root.status) {
                         Toast.makeText(context, root.message, Toast.LENGTH_SHORT).show();
+                        favoriteBtn.setImageResource(R.drawable.baseline_star_24);
+                        AppCompatActivity activity = (AppCompatActivity) context;
+                        HomeFragment myFragment = new HomeFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+
+                    } else {
+                        Toast.makeText(context, root.message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, "Server Error!!Try Again", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Root> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    void removeFavoriteApiCall(String favoriteId, ImageView favoriteBtn, int position) {
+
+        APIInterface api = ApiClient.getClient().create(APIInterface.class);
+        api.REMOVE_FAVORITE_API(favoriteId).enqueue(new Callback<Root>() {
+            @Override
+            public void onResponse(Call<Root> call, Response<Root> response) {
+                if (response.isSuccessful()) {
+                    Root root = response.body();
+                    if (root.status) {
+                        Toast.makeText(context, root.message, Toast.LENGTH_SHORT).show();
+                        favoriteBtn.setImageResource(R.drawable.outline_star_border_24);
+                        AppCompatActivity activity = (AppCompatActivity) context;
+                        HomeFragment myFragment = new HomeFragment();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, myFragment).addToBackStack(null).commit();
+
                     } else {
                         Toast.makeText(context, root.message, Toast.LENGTH_SHORT).show();
                     }
@@ -116,7 +169,9 @@ public class HomeTopNewsAdapter extends RecyclerView.Adapter<HomeTopNewsAdapter.
         private TextView newsHeadlineTxt;
         private TextView categoryNameTxt;
         private TextView timeTxt;
+
         private ImageView favoriteBtn;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

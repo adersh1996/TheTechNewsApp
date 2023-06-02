@@ -1,6 +1,9 @@
 package com.project.thetechnewsapp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +44,11 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initView(view);
 
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("login_data", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", "");
 
-        homeViewPagerApiCall();
-        apiTopNewsApiCall();
+        homeViewPagerApiCall(userId);
+        apiTopNewsApiCall(userId);
 
 
         etSearchBar.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +63,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    void apiTopNewsApiCall() {
+    void apiTopNewsApiCall(String userId) {
         APIInterface api = ApiClient.getClient().create(APIInterface.class);
-        api.VIEWALLNEWSAPI().enqueue(new Callback<Root>() {
+        api.VIEWALLNEWSAPI(userId).enqueue(new Callback<Root>() {
             @Override
             public void onResponse(Call<Root> call, Response<Root> response) {
                 if (response.isSuccessful()) {
@@ -86,9 +91,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    void homeViewPagerApiCall() {
+    void homeViewPagerApiCall(String userId) {
         APIInterface api = ApiClient.getClient().create(APIInterface.class);
-        api.VIEWALLNEWSAPI().enqueue(new Callback<Root>() {
+        api.VIEWALLNEWSAPI(userId).enqueue(new Callback<Root>() {
             @Override
             public void onResponse(Call<Root> call, Response<Root> response) {
                 if (response.isSuccessful()) {

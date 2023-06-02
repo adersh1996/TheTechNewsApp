@@ -8,6 +8,9 @@ public class Root {
     public ArrayList<UserDetail> userDetails;
     public ArrayList<NewsView> newsView;
     public ArrayList<CommentsView> commentsView;
+    public ArrayList<FavNews> favNews;
+
+
 
 
 
